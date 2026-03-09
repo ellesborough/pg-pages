@@ -1,0 +1,6 @@
+{%- assign character = include.all_characters | where: "nid", include.nid | first -%}
+{%- if character -%}
+    <a href="{{site.baseurl}}{{character.url}}">{{character.title}}</a>
+{%- else -%}
+    {{include.nid}}
+{%- endif -%}

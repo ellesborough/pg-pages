@@ -11,76 +11,66 @@ layout: default
 {%- endif -%}
 
 {%- if page.spouse -%}
-<p><span class="field-name">Spouse:</span>
-    <ul>
-    {%- for spouse_id in page.spouse -%}
-        <li>
-        {%- assign spouse = site.archers | where: "nid", spouse_id | first -%}
-        {%- if spouse -%}
-            <a href="{{site.baseurl}}{{spouse.url}}">{{spouse.title}}</a>
-        {%- else -%}
-            {{spouse_id}}
-        {%- endif -%}
-        </li>
-    {%- endfor -%}
-    </ul>
+<p><span class="field-name">Spouse: </span>
+    {%- if page.spouse.size == 1 -%}
+        {%- assign spouse_id = page.spouse[0] -%}
+        {%- include character_link_by_nid.html nid=spouse_id all_characters=site.archers -%}
+    {%- else -%}
+        <ul>
+        {%- for spouse_id in page.spouse -%}
+            <li>
+                {%- include character_link_by_nid.html nid=spouse_id all_characters=site.archers -%}
+            </li>
+        {%- endfor -%}
+        </ul>
+    {%- endif -%}
 </p>
 {%- endif -%}
 
 {%- if page.partner -%}
-<p><span class="field-name">Partners:</span><br>
-    <ul>
-    {%- for partner_id in page.partner -%}
-        <li>
-        {%- assign partner = site.archers | where: "nid", partner_id | first -%}
-        {%- if partner -%}
-            <a href="{{site.baseurl}}{{partner.url}}">{{partner.title}}</a>
-        {%- else -%}
-            {{partner_id}}
-        {%- endif -%}
-        </li>
-    {%- endfor -%}
-    </ul>
+<p><span class="field-name">Partners:</span>
+    {%- if page.partner.size == 1 -%}
+        {%- assign partner_id = page.partner[0] -%}
+        {%- include character_link_by_nid.html nid=partner_id all_characters=site.archers -%}
+    {%- else -%}
+        <ul>
+        {%- for partner_id in page.partner -%}
+            <li>
+                {%- include character_link_by_nid.html nid=partner_id all_characters=site.archers -%}
+            </li>
+        {%- endfor -%}
+        </ul>
+    {%- endif -%}
 </p>
 {%- endif -%}
 
 
 {%- if page.children -%}
-<p><span class="field-name">Children:</span>
-    <ul>
-    {%- for child_id in page.children -%}
-        <li>
-        {%- assign child = site.archers | where: "nid", child_id | first -%}
-        {%- if child -%}
-            <a href="{{site.baseurl}}{{child.url}}">{{child.title}}</a>
-        {%- else -%}
-            {{child_id}}
-        {%- endif -%}
-        </li>
-    {%- endfor -%}
-    </ul>
+<p><span class="field-name">Children: </span>
+{%- if page.children.size == 1 -%}
+        {%- assign child_id = page.children[0] -%}
+        {%- include character_link_by_nid.html nid=child_id all_characters=site.archers -%}
+    {%- else -%}
+        <ul>
+        {%- for child_id in page.children -%}
+            <li>
+                {%- include character_link_by_nid.html nid=child_id all_characters=site.archers -%}
+            </li>
+        {%- endfor -%}
+        </ul>
+    {%- endif -%}
 </p>
 {%- endif -%}
 
 {%- if page.father -%}
     <p><span class="field-name">Father: </span>
-    {%- assign father = site.archers | where: "nid", page.father | first -%}
-    {%- if father -%}
-        <a href="{{site.baseurl}}{{father.url}}">{{father.title}}</a>
-    {%- else -%}
-        {{page.father}} (Cant find father's name)
-    {%- endif -%}
+        {%- include character_link_by_nid.html nid=page.father all_characters=site.archers -%}
     </p>
 {%- endif -%}
 
 {%- if page.mother -%}
 <p><span class="field-name">Mother: </span>
-    {%- assign mother = site.archers | where: "nid", page.mother | first -%}
-    {%- if mother -%}
-        <a href="{{site.baseurl}}{{mother.url}}">{{mother.title}}</a>
-    {%- else -%}
-        {{page.mother}} (Cant find mother's name)
-    {%- endif -%}
+    {%- include character_link_by_nid.html nid=page.mother all_characters=site.archers -%}
 </p>
 {%- endif -%}
 
