@@ -1,0 +1,31 @@
+content:
+  - name: archers
+    label: "Archers Characters"
+    path: _archers
+    type: collection
+    filename: "{nid}.md"
+    view:
+      fields: [title]
+      sort: [family_name]
+    
+    fields:
+      - {label: "ID",            name: "nid",           type: "number",    required: true, options: {min: 600, max: 4000, default: 1000}, description: "Choose a number not previously used" }
+      - {label: "Title",         name: "title",         type: "string",    required: true, description: "Can be just [forenames] [surname] or also include other information eg nickname, maiden name or DoB/DoD" }
+      - {label: "Forename(s)",   name: "forenames",     type: "string",    required: true }
+      - {label: "Surname",       name: "family_name",   type: "string",    required: true }
+      - {label: "Maiden name",   name: "maiden_name",   type: "string",    required: false }
+      - {label: "Gender",        name: "gender",        type: "select",    required: false, options: {values: ["male", "female", "unknown"]}}
+      - {label: "Father",        name: "father",        type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "title", label: "title" }}
+      - {label: "Mother",        name: "mother",        type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "title", label: "title" }}      
+      - {label: "Children",      name: "children",      type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "title", label: "title", multiple: true }}
+      - {label: "Spouses",       name: "spouse",        type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "title", label: "title", multiple: true }}
+      - {label: "Partners",      name: "partner",       type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "title", label: "title", multiple: true }}
+      - {label: "Date of birth", name: "date_of_birth", type: "date",      required: false, options: {date_format: "yyyy-MM-dd" }}
+      - {label: "Date of death", name: "date_of_death", type: "date",      required: false, options: {date_format: "yyyy-MM-dd" }}
+      - {label: "Actor",         name: "actor",         type: "string",    required: false, list: true }
+
+      - {label: "Body",          name: "body",          type: "rich-text", required: false, options: {media: false}}
+
+      
+    
+      
