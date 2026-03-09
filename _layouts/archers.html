@@ -28,7 +28,7 @@ layout: default
 {%- endif -%}
 
 {%- if page.partner -%}
-<p><span class="field-name">Partners:</span>
+<p><span class="field-name">Partners: </span>
     {%- if page.partner.size == 1 -%}
         {%- assign partner_id = page.partner[0] -%}
         {%- include character_link_by_nid.html nid=partner_id all_characters=site.archers -%}
@@ -47,7 +47,7 @@ layout: default
 
 {%- if page.children -%}
 <p><span class="field-name">Children: </span>
-{%- if page.children.size == 1 -%}
+    {%- if page.children.size == 1 -%}
         {%- assign child_id = page.children[0] -%}
         {%- include character_link_by_nid.html nid=child_id all_characters=site.archers -%}
     {%- else -%}
@@ -83,20 +83,19 @@ layout: default
 {%- endif -%}
 
 {%- if page.actor -%}
-<p><span class="field-name">Actor:</span>
-    <ul>
-    {%- for actor_id in page.actor -%}
-        <li>
-        {%- assign actor = site.archers | where: "nid", actor_id | first -%}
-        {%- if actor -%}
-            <a href="{{site.baseurl}}{{actor.url}}">{{actor.title}}</a>
-        {%- else -%}
-            {{actor_id}}
-        {%- endif -%}
-        </li>
-    {%- endfor -%}
-    </ul>
-
+<p><span class="field-name">Actor: </span>
+    {%- if page.actor.size == 1 -%}
+        {%- assign actor_id = page.actor[0] -%}
+        {%- include character_link_by_nid.html nid=actor_id all_characters=site.archers -%}
+    {%- else -%}
+        <ul>
+        {%- for actor_id in page.actor -%}
+            <li>
+                {%- include character_link_by_nid.html nid=actor_id all_characters=site.archers -%}
+            </li>
+        {%- endfor -%}
+        </ul>
+    {%- endif -%}
 </p>
 {%- endif -%}
 
