@@ -18,19 +18,17 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: PG-Pages Experiments with Jekyll
-email: ellesborough+ghpages@gmail.com
+title: BBC The Archers
 description: >- # this means to ignore newlines until "baseurl:"
-  Experiments with GH Pages, Jekyll and CMS.
-baseurl: "/pg-pages" # the subpath of your site, e.g. /blog
+  The BBC Archers characters as a family tree.
+baseurl: "/the-archers" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-#twitter_username: jekyllrb
 github_username:  ellesborough
 
 # Build settings
 theme: minima
-plugins:
-  - jekyll-feed
+#plugins:
+#  - jekyll-feed
 
 # Exclude from processing.
 # The following items will not be processed, by default.
