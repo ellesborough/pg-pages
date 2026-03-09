@@ -15,11 +15,11 @@ content:
       - {label: "Surname",       name: "family_name",   type: "string",    required: true }
       - {label: "Maiden name",   name: "maiden_name",   type: "string",    required: false }
       - {label: "Gender",        name: "gender",        type: "select",    required: false, options: {values: ["male", "female", "unknown"]}}
-      - {label: "Father",        name: "father",        type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "title", label: "title" }}
-      - {label: "Mother",        name: "mother",        type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "title", label: "title" }}      
-      - {label: "Children",      name: "children",      type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "title", label: "title", multiple: true }}
-      - {label: "Spouses",       name: "spouse",        type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "title", label: "title", multiple: true }}
-      - {label: "Partners",      name: "partner",       type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "title", label: "title", multiple: true }}
+      - {label: "Father",        name: "father",        type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "{title}", label: "{title}" }}
+      - {label: "Mother",        name: "mother",        type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "{title}", label: "{title}" }}      
+      - {label: "Children",      name: "children",      type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "{title}", label: "{title}", multiple: true }}
+      - {label: "Spouses",       name: "spouse",        type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "{title}", label: "{title}", multiple: true }}
+      - {label: "Partners",      name: "partner",       type: "reference", required: false, options: {collection: "archers", value: "{nid}", search: "{title}", label: "{title}", multiple: true }}
       - {label: "Date of birth", name: "date_of_birth", type: "date",      required: false, options: {date_format: "yyyy-MM-dd" }}
       - {label: "Date of death", name: "date_of_death", type: "date",      required: false, options: {date_format: "yyyy-MM-dd" }}
       - {label: "Actor",         name: "actor",         type: "string",    required: false, list: true }
