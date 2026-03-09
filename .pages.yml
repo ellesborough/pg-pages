@@ -5,7 +5,7 @@ content:
     type: collection
     filename: "{nid}.md"
     view:
-      fields: [title, date_of_birth, date_of_death]
+      fields: [forenames, family_name, date_of_birth, date_of_death]
       sort: [family_name, date_of_birth]
       default: 
         sort: family_name
