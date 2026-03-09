@@ -1,0 +1,30 @@
+---
+layout: default
+title: All Archers
+---
+{% assign ordered_characters = site.archers | sort: "family_name" %}
+<table>
+<tr>
+    <th>Forenames</th>
+    <th>Family Name</th>
+    <th>Date of Birth</th>
+    <th>Date of Death</th>
+    <th></th>
+</tr>
+{% for archer in ordered_characters %}
+<tr>
+    <td>{{archer.forenames}}</td>
+    <td>{{archer.family_name}}
+        {% if archer.maiden_name %}
+            , née {{archer.maiden_name}}
+        {% endif %}
+    </td>
+    <td>{{archer.date_of_birth}}</td>
+    <td>{{archer.date_of_death}}</td>
+    <td><a href="{{site.baseurl}}{{ archer.url }}">Details</a></td>
+
+</tr>
+
+{% endfor %}
+
+</table>

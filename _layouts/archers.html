@@ -1,0 +1,178 @@
+---
+layout: default
+---
+<h1>{{ page.title }}</h1>
+
+<p><span class="field-name">Forenames:</span> {{page.forenames}}</p>
+<p><span class="field-name">Family Name:</span> {{page.family_name}}</p>
+
+{%- if page.maiden_name -%}
+    <p><span class="field-name">Maiden Name:</span> {{page.maiden_name}}</p>
+{%- endif -%}
+
+{%- if page.spouse -%}
+<p><span class="field-name">Spouse:</span>
+    <ul>
+    {%- for spouse_id in page.spouse -%}
+        <li>
+        {%- assign spouse = site.archers | where: "nid", spouse_id | first -%}
+        {%- if spouse -%}
+            <a href="{{site.baseurl}}{{spouse.url}}">{{spouse.title}}</a>
+        {%- else -%}
+            {{spouse_id}}
+        {%- endif -%}
+        </li>
+    {%- endfor -%}
+    </ul>
+</p>
+{%- endif -%}
+
+{%- if page.partner -%}
+<p><span class="field-name">Partners:</span><br>
+    <ul>
+    {%- for partner_id in page.partner -%}
+        <li>
+        {%- assign partner = site.archers | where: "nid", partner_id | first -%}
+        {%- if partner -%}
+            <a href="{{site.baseurl}}{{partner.url}}">{{partner.title}}</a>
+        {%- else -%}
+            {{partner_id}}
+        {%- endif -%}
+        </li>
+    {%- endfor -%}
+    </ul>
+</p>
+{%- endif -%}
+
+
+{%- if page.children -%}
+<p><span class="field-name">Children:</span>
+    <ul>
+    {%- for child_id in page.children -%}
+        <li>
+        {%- assign child = site.archers | where: "nid", child_id | first -%}
+        {%- if child -%}
+            <a href="{{site.baseurl}}{{child.url}}">{{child.title}}</a>
+        {%- else -%}
+            {{child_id}}
+        {%- endif -%}
+        </li>
+    {%- endfor -%}
+    </ul>
+</p>
+{%- endif -%}
+
+{%- if page.father -%}
+    <p><span class="field-name">Father: </span>
+    {%- assign father = site.archers | where: "nid", page.father | first -%}
+    {%- if father -%}
+        <a href="{{site.baseurl}}{{father.url}}">{{father.title}}</a>
+    {%- else -%}
+        {{page.father}} (Cant find father's name)
+    {%- endif -%}
+    </p>
+{%- endif -%}
+
+{%- if page.mother -%}
+<p><span class="field-name">Mother: </span>
+    {%- assign mother = site.archers | where: "nid", page.mother | first -%}
+    {%- if mother -%}
+        <a href="{{site.baseurl}}{{mother.url}}">{{mother.title}}</a>
+    {%- else -%}
+        {{page.mother}} (Cant find mother's name)
+    {%- endif -%}
+</p>
+{%- endif -%}
+
+{%- if page.date_of_birth -%}
+<p><span class="field-name">Date of Birth:</span> {{page.date_of_birth}}</p>
+{%- endif -%}
+
+{%- if page.date_of_death -%}
+<p><span class="field-name">Date of Death:</span> {{page.date_of_death}}</p>
+{%- endif -%}
+
+{%- if page.actor -%}
+<p><span class="field-name">Actor:</span>
+    <ul>
+    {%- for actor_id in page.actor -%}
+        <li>
+        {%- assign actor = site.archers | where: "nid", actor_id | first -%}
+        {%- if actor -%}
+            <a href="{{site.baseurl}}{{actor.url}}">{{actor.title}}</a>
+        {%- else -%}
+            {{actor_id}}
+        {%- endif -%}
+        </li>
+    {%- endfor -%}
+    </ul>
+
+</p>
+{%- endif -%}
+
+{%- if page.bbc_url -%}
+<p><span class="field-name">BBC Webpage:</span> <a href="{{page.bbc_url}}"" target=_blank>{{page.bbc_url}}</a> </p>
+{%- endif -%}
+
+{%- assign descendants_div_id = 'descendant-family-tree' -%}
+{%- assign pedigree_div_id = 'pedigree-family-tree' -%}
+
+<div id="pedigree">
+    <h2>Pedigree Family Tree</h2>
+    <div id="{{pedigree_div_id}}" class="archers-family-tree"></div>
+</div>
+
+<div id="tree">
+    <h2>Descendants Family Tree</h2>
+    <div id="{{descendants_div_id}}" class="archers-family-tree"></div>
+</div>
+
+
+<script>
+var descendants_node_structure = {
+    "innerHTML": "{%- capture ih -%}{%- include /tree_format_person.html person=page all_characters=site.archers spouse=true -%}{%- endcapture -%} {{- ih | strip_newlines -}}",
+    "children": [ {%- include /tree_add_children.html person=page all_characters=site.archers collapsed=true -%} ]
+};
+
+var descendants_chart_config = {
+                'chart' : {
+                            'container'         : "#{{descendants_div_id}}",
+                            'rootOrientation'   : 'NORTH', //'SOUTH',
+                            'nodeAlign'         : 'BOTTOM', // TOP, CENTER, BOTTOM //seems to be inverted
+                            'connectors'        : {'type' : 'step'},
+                            'levelSeparation'   : 60,
+                            'node'              : {
+                                                    'HTMLclass'   : 'archer-descendant',
+                                                    'collapsable' : true,
+                                                },
+                        },
+                'nodeStructure' : descendants_node_structure,
+            };
+
+var descendants_chart = new Treant(descendants_chart_config);
+
+var pedigree_node_structure = {
+    "innerHTML": "{%- capture ih -%}{%- include /tree_format_person.html person=page all_characters=site.archers spouse=false -%}{%- endcapture -%} {{- ih | strip_newlines -}}",
+    "children": [ {%- include /tree_add_parents.html person=page all_characters=site.archers collapsed=true -%} ]
+};
+
+var pedigree_chart_config = {
+                'chart' : {
+                            'container'         : "#{{pedigree_div_id}}",
+                            'rootOrientation'   : 'SOUTH',
+                            'nodeAlign'         : 'BOTTOM', // TOP, CENTER, BOTTOM //seems to be inverted
+                            'connectors'        : {'type' : 'step'},
+                            'levelSeparation'   : 60,
+                            'node'              : {
+                                                    'HTMLclass'   : 'archer-pedigree',
+                                                    'collapsable' : true,
+                                                },
+                        },
+                'nodeStructure' : pedigree_node_structure,
+            };
+
+var pedigree_chart = new Treant(pedigree_chart_config);
+
+</script>
+
+{{ content }}

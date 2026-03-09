@@ -1,0 +1,32 @@
+{%- capture gender_class %}
+{%- if include.person.gender == "male" %}archer-male{%- elsif include.person.gender == "female" %}archer-female{%- endif %}
+{%- endcapture %}
+
+{%- capture split_class -%}
+{%- if include.spouse -%}self-div{%- endif %}
+{%- endcapture %}
+
+<div class='{{split_class}} {{gender_class}}'>
+    {{include.person.forenames}}<br><b>{{include.person.family_name}}</b>
+    <a href='{{site.baseurl}}{{include.person.url}}'><i class='fa fa-address-card'></i></a>
+    <a href='{{site.baseurl}}{{include.person.url}}#tree'><i class='fa fa-sitemap'></i></a>
+    <a href='{{site.baseurl}}{{include.person.url}}#pedigree'><i class='fa fa-share-alt fa-rotate-270'></i></a>
+</div>
+{%- if include.spouse -%}
+<div class='spouse-div'>
+    {%- for spouse_id in include.person.spouse -%}
+        {%- assign spouse = include.all_characters | where: "nid", spouse_id | first %}
+        {%- if spouse %}
+            {%- capture spouse_gender_class %}
+            {%- if spouse.gender == "male" %}archer-male{%- elsif spouse.gender == "female" %}archer-female{%- endif %}
+            {%- endcapture %}
+<div class='spouse-inner {{spouse_gender_class}}'>
+    {{spouse.forenames}}<br><b>{{spouse.family_name}}</b>
+    <a href='{{site.baseurl}}{{spouse.url}}'><i class='fa fa-address-card'></i></a>
+    <a href='{{site.baseurl}}{{spouse.url}}#tree'><i class='fa fa-sitemap'></i></a>
+    <a href='{{site.baseurl}}{{spouse.url}}#pedigree'><i class='fa fa-share-alt fa-rotate-270'></i></a>
+</div>
+        {%- endif %}
+    {%- endfor %}
+{%- endif %}
+</div>

@@ -1,0 +1,80 @@
+.archers-family-tree {
+    border: 1px;
+    border-color: black;
+    background: lightyellow;
+    border-style: solid;
+    border-radius: 3px;
+}
+
+.archer-descendant {
+    padding: 2px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    border: 1px solid #000;
+    width: 260px;     
+    /* height: 80px;    */
+    font-family: Tahoma;
+    font-size: 13px; 
+} 
+
+.archer-pedigree {
+    padding: 2px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    border: 1px solid #000;
+    width: 140px;     
+    /* height: 80px;    */
+    font-family: Tahoma;
+    font-size: 13px; 
+}
+
+ 
+.Treant .archer-descendant .collapse-switch 
+{
+    border : 3px green;
+}
+
+.Treant .collapse-switch:before
+{
+ font-family: FontAwesome;
+ content: "\f0fe";
+}
+   
+.self-div
+{
+  float: left;
+  width: 50%;  
+  background-color: GHOSTWHITE;
+}
+.spouse-div
+{ 
+  float : right;
+  width: 50%;  
+  background-color: LIGHTGRAY;
+}
+
+.spouse-inner
+{ 
+    padding-left : 5px;
+}
+
+.archer-male
+{
+    background-color : lightblue;
+}	
+.archer-female
+{
+    background-color : pink;
+}	
+   
+.archer-male-partner
+{    
+    background-image: repeating-linear-gradient(45deg,lightblue,lightblue 5px,lightgray 5px,lightgray 10px);    
+}	
+  
+.archer-female-partner
+{
+/*    background-image: repeating-linear-gradient(45deg, pink, pink 5px, lightgray 5px, lightgray 10px); */
+  background-image: repeating-linear-gradient(45deg, pink, pink 5px, lightgray 5px, lightgray 10px);   
+
+}	

@@ -1,0 +1,10 @@
+{%- for child_id in include.person.children -%}
+    {%- assign child = include.all_characters | where: "nid", child_id | first -%}
+    {%- if child -%}
+        {
+            "innerHTML": "{%- capture ih -%}{%- include /tree_format_person.html person=child all_characters=include.all_characters spouse=true -%}{%- endcapture -%}{{- ih | strip_newlines -}}",
+            "collapsed" : {{include.collapsed}},
+            "children": [ {%- include /tree_add_children.html person=child all_characters=include.all_characters collapsed=true -%} ]
+        } {%- unless forloop.last -%},{%- endunless -%}
+    {%- endif -%}
+{%- endfor -%}

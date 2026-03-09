@@ -1,0 +1,6 @@
+{%- capture gender_class %}
+{%- if include.gender == "male" %}archer-male{%- elsif include.gender == "female" %}archer-female{%- endif %}
+{%- endcapture %}
+<div class='{{gender_class}}'>
+    Unknown
+</div>

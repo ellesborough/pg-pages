@@ -25,6 +25,20 @@ baseurl: "/the-archers" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  ellesborough
 
+exclude: [import]
+
+collections:
+  archers:
+    output: true
+    sort_by: family_name
+
+defaults:
+  - scope:
+      path: ""
+      type: "archers"
+    values:
+      layout: "archers"
+
 # Build settings
 theme: minima
 #plugins:

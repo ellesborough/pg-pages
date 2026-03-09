@@ -1,0 +1,19 @@
+{
+{%- if include.person.father -%}
+{%- assign father = include.all_characters | where: "nid", include.person.father | first -%}
+    "innerHTML": "{%- capture ih -%}{%- include /tree_format_person.html person=father all_characters=include.all_characters -%}{%- endcapture -%}{{- ih | strip_newlines -}}",
+    "collapsed" : {{include.collapsed}},
+    "children": [ {%- include /tree_add_parents.html person=father all_characters=include.all_characters collapsed=true -%} ]
+{%- else -%}
+    "innerHTML": "{%- capture ih -%}{%- include /tree_format_unknown.html gender='male' -%}{%- endcapture -%}{{- ih | strip_newlines -}}",
+{%- endif -%}
+},{
+{%- if include.person.mother -%}
+{%- assign mother = include.all_characters | where: "nid", include.person.mother | first -%}
+    "innerHTML": "{%- capture ih -%}{%- include /tree_format_person.html person=mother all_characters=include.all_characters -%}{%- endcapture -%}{{- ih | strip_newlines -}}",
+    "collapsed" : {{include.collapsed}},
+    "children": [ {%- include /tree_add_parents.html person=mother all_characters=include.all_characters collapsed=true -%} ]
+{%- else -%}
+    "innerHTML": "{%- capture ih -%}{%- include /tree_format_unknown.html gender='female' -%}{%- endcapture -%}{{- ih | strip_newlines -}}",
+{%- endif -%}
+}
