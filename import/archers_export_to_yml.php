@@ -4,19 +4,24 @@ include "archers_export.php";
 
 echo count($archers_export) . " characters\n";
 
-$output_path = "_archers/";
+$output_path = "../_archers/";
 $output_ext = '.md';
+
+$nid_prefix = 'P-';
 
 foreach($archers_export as $character) {
 
-    $fp = fopen($output_path . $character->nid . $output_ext, "w");
+    $filename = $output_path . $nid_prefix . $character->nid . $output_ext;
+
+    $fp = fopen($filename, "w");
+
+    echo $filename . "\n";
 
     fwrite($fp, "---\n");
-    fwrite($fp, "nid: " . $character->nid . "\n");
+    fwrite($fp, "nid: " . $nid_prefix . $character->nid . "\n");
     fwrite($fp, "title: " . $character->title . "\n");
-    fwrite($fp, "created: " . $character->created . "\n");
-    fwrite($fp, "changed: " . $character->changed . "\n");
-    fwrite($fp, "revision_timestamp: " . $character->revision_timestamp . "\n");
+    fwrite($fp, "created: " . date('Y-m-d H:i:s', $character->created) . "\n");
+    fwrite($fp, "changed: " . date('Y-m-d H:i:s', $character->changed) . "\n");
 
     if(!empty($character->field_forenames['und'])) {
         fwrite($fp, "forenames: " . $character->field_forenames['und'][0]['safe_value'] . "\n");
@@ -35,7 +40,7 @@ foreach($archers_export as $character) {
         $spouses = $character->field_spouse['und'];
         fwrite($fp, "spouse: \n");
         foreach($spouses as $spouse) {
-            fwrite($fp, "    - " . $spouse['target_id'] . "\n");
+            fwrite($fp, "    - " . $nid_prefix . $spouse['target_id'] . "\n");
         }
     }
 
@@ -43,21 +48,21 @@ foreach($archers_export as $character) {
         $partners = $character->field_non_marital_rel['und'];
         fwrite($fp, "partner: \n");
         foreach($partners as $partner) {
-            fwrite($fp, "    - " . $partner['target_id'] . "\n");
+            fwrite($fp, "    - " . $nid_prefix . $partner['target_id'] . "\n");
         }
     }
     if(!empty($character->field_father['und'])) {
-        fwrite($fp, "father: " . $character->field_father['und'][0]['target_id'] . "\n");
+        fwrite($fp, "father: " . $nid_prefix . $character->field_father['und'][0]['target_id'] . "\n");
     }
     if(!empty($character->field_mother['und'])) {
-        fwrite($fp, "mother: " . $character->field_mother['und'][0]['target_id'] . "\n");
+        fwrite($fp, "mother: " . $nid_prefix . $character->field_mother['und'][0]['target_id'] . "\n");
     }
 
     if(!empty($character->field_children['und'])) {
         $children = $character->field_children['und'];
         fwrite($fp, "children: \n");
         foreach($children as $child) {
-            fwrite($fp, "    - " . $child['target_id'] . "\n");
+            fwrite($fp, "    - " . $nid_prefix . $child['target_id'] . "\n");
         }
     }
 
@@ -79,7 +84,7 @@ foreach($archers_export as $character) {
         if(!empty($dob['day'])) {
             fwrite($fp, '-' . str_pad($dob['day'], 2, '0', STR_PAD_LEFT));
         }
-        fwrite($fp, '"' . "\n");        
+        fwrite($fp, '"' . "\n");
     }
 
     # Partial date can be YYYY, YYYY-MM or YYYY-MM-DD
