@@ -1,0 +1,48 @@
+app_title: 'CMS - The Archers'
+logo:
+  src: /the-archers/assets/favicon.ico
+  show_in_header: true
+
+slug:
+  lowercase: false
+
+backend:
+  name: github
+  #name: test-repo
+  repo: ellesborough/the-archers
+  branch: main
+
+site_url: https://ellesborough.github.io/the-archers
+media_folder: "uploads"
+media_library:
+  name: uploadcare
+
+collections:
+  - name: "archers"
+    label: "Archers Character"
+    folder: "_archers"
+    create: true
+    delete: false
+#    identifier_field: nid
+    slug: "{{nid | upper}}"
+    fields:
+      - {label: "ID",            name: "nid",           widget: "string",   required: true, prefix: 'P-', pattern: ['^P-[0-9]+$', 'Only numbers allowed' ], hint: "Choose a number not previously used" }
+      - {label: "Created",       name: "created",       widget: "datetime", required: false, readonly: true}
+      - {label: "Updated",       name: "changed",       widget: "datetime", required: false, readonly: true}
+      - {label: "Title",         name: "title",         widget: "string",   required: true, hint: "Can be just [forenames] [surname] or also include other information eg nickname, maiden name or DoB/DoD" }
+      - {label: "Forename(s)",   name: "forenames",     widget: "string",   required: true }
+      - {label: "Surname",       name: "family_name",   widget: "string",   required: true }
+      - {label: "Maiden name",   name: "maiden_name",   widget: "string",   required: false }
+      - {label: "Gender",        name: "gender",        widget: "select",   required: false, options: ["male", "female", "unknown"]}
+      - {label: "Father",        name: "father",        widget: "relation", required: false, collection: "archers", value_field: "nid", search_fields: ["title"], display_fields: ["title"] }
+      - {label: "Mother",        name: "mother",        widget: "relation", required: false, collection: "archers", value_field: "nid", search_fields: ["title"], display_fields: ["title"] }
+      - {label: "Children",      name: "children",      widget: "relation", required: false, collection: "archers", value_field: "nid", search_fields: ["title"], display_fields: ["title"], multiple: true }
+      - {label: "Spouses",       name: "spouse",        widget: "relation", required: false, collection: "archers", value_field: "nid", search_fields: ["title"], display_fields: ["title"], multiple: true }
+      - {label: "Partners",      name: "partner",       widget: "relation", required: false, collection: "archers", value_field: "nid", search_fields: ["title"], display_fields: ["title"], multiple: true }
+      - {label: "Date of birth", name: "date_of_birth", widget: "datetime", required: false, type: date, date_format: "YYYY-MM-DD" }
+      - {label: "Date of death", name: "date_of_death", widget: "datetime", required: false, type: date, date_format: "YYYY-MM-DD" }
+      - {label: "Actor",         name: "actor",         widget: "list",     required: false, summary: "{{fields.actor}}", field: {label: Actor, name: actor, widget: string} }
+
+      - {label: "Body",          name: "body",          widget: "markdown", required: false }
+
+
