@@ -1,5 +1,5 @@
 {
-{%- if include.person.father -%}
+{%- if include.person.father and include.person.father.size != 0 -%}
 {%- assign father = include.all_characters | where: "nid", include.person.father | first -%}
     "innerHTML": "{%- capture ih -%}{%- include /tree_format_person.html person=father all_characters=include.all_characters -%}{%- endcapture -%}{{- ih | strip_newlines -}}",
     "collapsed" : {{include.collapsed}},
@@ -8,7 +8,7 @@
     "innerHTML": "{%- capture ih -%}{%- include /tree_format_unknown.html gender='male' -%}{%- endcapture -%}{{- ih | strip_newlines -}}",
 {%- endif -%}
 },{
-{%- if include.person.mother -%}
+{%- if include.person.mother and include.person.mother.size != 0 -%}
 {%- assign mother = include.all_characters | where: "nid", include.person.mother | first -%}
     "innerHTML": "{%- capture ih -%}{%- include /tree_format_person.html person=mother all_characters=include.all_characters -%}{%- endcapture -%}{{- ih | strip_newlines -}}",
     "collapsed" : {{include.collapsed}},

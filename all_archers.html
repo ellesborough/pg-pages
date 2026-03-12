@@ -15,7 +15,7 @@ title: All Archers
 <tr>
     <td>{{archer.forenames}}</td>
     <td>{{archer.family_name}}
-        {% if archer.maiden_name %}
+        {% if archer.maiden_name and archer.maiden_name.size != 0 %}
             , née {{archer.maiden_name}}
         {% endif %}
     </td>
